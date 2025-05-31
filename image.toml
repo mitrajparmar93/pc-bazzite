@@ -1,3 +1,38 @@
+name = "pc-bazzite"
+description = "mrp's custom Bazzite image"
+base-image = "ghcr.io/ublue-os/bazzite-main"
+releasever = "40"
+
+[packages]
+install = [
+  "@development-tools",
+  "zsh",
+  "neovim",
+  "htop",
+  "dkms",
+  "akmods",
+  "kernel-devel",
+  "kernel-headers",
+  "starship",
+  "git",
+  "curl",
+  "wget"
+]
+
+[flatpaks]
+install = [
+  "com.visualstudio.code",
+  "md.obsidian.Obsidian",
+  "com.getpostman.Postman",
+  "org.mozilla.firefox",
+  "com.slack.Slack",
+  "com.spotify.Client",
+  "com.github.tchx84.Flatseal",
+  "com.bitwarden.desktop"
+]
+
+post-install = "build_files/post-install.sh"
+
 [[customizations.filesystem]]
 mountpoint = "/"
 minsize = "20 GiB"
