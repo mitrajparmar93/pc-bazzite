@@ -2,8 +2,8 @@
 FROM scratch AS ctx
 COPY build_files /
 
-# Base Image
-FROM ghcr.io/ublue-os/bazzite:stable
+# Base Image - NVIDIA optimized
+FROM ghcr.io/ublue-os/bazzite-nvidia:stable
 
 ## Other possible base images include:
 # FROM ghcr.io/ublue-os/bazzite:latest

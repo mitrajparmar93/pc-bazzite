@@ -2,23 +2,56 @@
 
 set -ouex pipefail
 
-### Install packages
+### Performance optimizations for gaming + development
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/39/x86_64/repoview/index.html&protocol=https&redirect=1
+# Gaming: Increase vm.max_map_count for better game compatibility
+echo 'vm.max_map_count=2147483642' > /etc/sysctl.d/99-gaming.conf
 
-# this installs a package from fedora repos
-dnf5 install -y tmux 
+# Performance: Set performance governor as default
+echo 'GOVERNOR="performance"' > /etc/default/cpupower
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
+# Faster boot: Reduce systemd timeout
+mkdir -p /etc/systemd/system.conf.d
+cat > /etc/systemd/system.conf.d/timeout.conf << 'EOF'
+[Manager]
+DefaultTimeoutStopSec=10s
+EOF
 
-#### Example for enabling a System Unit File
+# I/O scheduler optimization for NVMe/SSD
+cat > /etc/udev/rules.d/60-ioschedulers.conf << 'EOF'
+ACTION=="add|change", KERNEL=="nvme[0-9]*", ATTR{queue/scheduler}="none"
+ACTION=="add|change", KERNEL=="sd[a-z]|mmcblk[0-9]*", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
+EOF
 
+# NVIDIA: Force performance mode
+mkdir -p /etc/modprobe.d
+echo 'options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1;PerfLevelSrc=0x2222;PowerMizerDefault=0x1;PowerMizerDefaultAC=0x1"' > /etc/modprobe.d/nvidia-performance.conf
+
+# Enable services
 systemctl enable podman.socket
+systemctl enable docker.socket
+
+# Custom ujust commands
+mkdir -p /usr/share/ublue-os/just
+cat > /usr/share/ublue-os/just/60-custom.just << 'EOF'
+# Update everything at once
+update-all:
+    rpm-ostree update
+    flatpak update -y
+    podman auto-update
+
+# Deep clean system
+clean-all:
+    podman system prune -af
+    flatpak uninstall --unused -y
+    rpm-ostree cleanup -m
+    
+# Gaming: Enable performance mode
+gaming-mode:
+    powerprofilesctl set performance
+    echo "Performance mode enabled"
+
+# Dev: Install uv (Python package manager)
+install-uv:
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+EOF

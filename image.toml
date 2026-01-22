@@ -1,34 +1,81 @@
 name = "pc-bazzite"
-description = "mrp's custom Bazzite image"
-base-image = "ghcr.io/ublue-os/bazzite-main"
+description = "mrp's custom Bazzite image - NVIDIA 3060Ti + 64GB + Dual Monitor + Gaming/Dev"
+base-image = "ghcr.io/ublue-os/bazzite-nvidia"
 releasever = "40"
 
 [packages]
 install = [
+  # Development
   "@development-tools",
-  "zsh",
+  "git",
   "neovim",
+  "python3-pip",
+  "nodejs",
+  "golang",
+  
+  # Shell & CLI tools
+  "zsh",
+  "starship",
+  "bat",
+  "eza",
+  "ripgrep",
+  "fd-find",
+  "fzf",
+  "btop",
+  "ncdu",
+  "tldr",
+  "fastfetch",
+  "tmux",
+  
+  # Containers & Infrastructure
+  "docker",
+  "docker-compose",
+  "podman-compose",
+  "terraform",
+  
+  # System utilities
+  "curl",
+  "wget",
   "htop",
+  
+  # Gaming performance
+  "gamemode",
+  "mangohud",
+  "goverlay",
+  
+  # NVIDIA kernel support
   "dkms",
   "akmods",
   "kernel-devel",
   "kernel-headers",
-  "starship",
-  "git",
-  "curl",
-  "wget"
+  
+  # Network tools
+  "wireguard-tools",
+  "openvpn"
 ]
 
 [flatpaks]
 install = [
+  # Development
   "com.visualstudio.code",
-  "md.obsidian.Obsidian",
   "com.getpostman.Postman",
-  "org.mozilla.firefox",
+  "io.podman_desktop.PodmanDesktop",
+  
+  # Productivity
+  "md.obsidian.Obsidian",
+  "com.bitwarden.desktop",
   "com.slack.Slack",
+  
+  # Browsers
+  "io.github.zen_browser.zen",
+  "org.mozilla.firefox",
+  
+  # Media
   "com.spotify.Client",
+  
+  # Utilities
   "com.github.tchx84.Flatseal",
-  "com.bitwarden.desktop"
+  "com.mattjakeman.ExtensionManager"
 ]
 
 post-install = "build_files/post-install.sh"
