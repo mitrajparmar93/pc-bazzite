@@ -22,6 +22,28 @@ echo 'options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1;PerfLevelSrc=0x2
 
 # Enable services
 systemctl enable podman.socket
+
+# Create Ollama systemd service
+cat > /etc/systemd/system/ollama.service << 'EOF'
+[Unit]
+Description=Ollama Service
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/ollama serve
+User=ollama
+Group=ollama
+Restart=always
+RestartSec=3
+Environment="OLLAMA_HOST=0.0.0.0:11434"
+
+[Install]
+WantedBy=default.target
+EOF
+
+# Create ollama user
+useradd -r -s /bin/false -d /usr/share/ollama ollama || true
+
 systemctl enable ollama.service
 
 # Create systemd service to auto-pull DeepSeek model on first boot
