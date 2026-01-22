@@ -1,6 +1,6 @@
 name = "pc-bazzite"
 description = "mrp's custom Bazzite image - NVIDIA 3060Ti + 64GB + Dual Monitor + Gaming/Dev"
-base-image = "ghcr.io/ublue-os/bazzite-nvidia"
+# Note: base-image is set in Containerfile, not here
 releasever = "40"
 
 [packages]
