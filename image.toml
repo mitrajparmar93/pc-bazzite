@@ -15,6 +15,8 @@ install = [
   
   # Shell & CLI tools
   "zsh",
+  "zsh-syntax-highlighting",
+  "zsh-autosuggestions",
   "starship",
   "bat",
   "eza",
@@ -26,6 +28,7 @@ install = [
   "tldr",
   "fastfetch",
   "tmux",
+  "glow",
   
   # Containers & Infrastructure
   "podman-compose",
@@ -35,6 +38,7 @@ install = [
   "curl",
   "wget",
   "htop",
+  "ollama",
   
   # Gaming performance
   "gamemode",
@@ -73,7 +77,8 @@ install = [
   
   # Utilities
   "com.github.tchx84.Flatseal",
-  "com.mattjakeman.ExtensionManager"
+  "com.mattjakeman.ExtensionManager",
+  "io.github.vikdevelop.SaveDesktop"
 ]
 
 post-install = "build_files/post-install.sh"

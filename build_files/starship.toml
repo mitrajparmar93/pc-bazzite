@@ -1,0 +1,73 @@
+add_newline = false
+right_format = '$time'
+
+[line_break]
+disabled = true
+
+[hostname]
+ssh_only = false
+format = '💻 '
+disabled = false
+
+[username]
+show_always = false
+format = '[$user]($style) '
+
+[nodejs]
+disabled = true
+
+[package]
+disabled = true
+
+[git_status]
+ahead = '⇡${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+behind = '⇣${count}'
+
+[cmd_duration]
+min_time = 0
+format = "took [$duration]($style)"
+
+[character]
+error_symbol = '[✗](bold red) '
+
+[sudo]
+style = 'bold green'
+symbol = '👩💻 '
+disabled = true
+
+[container]
+format = '[$symbol \[$name\]]($style) '
+
+[directory]
+truncation_length = 4
+truncation_symbol = '…/'
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+cherry_pick = '[🍒 PICKING](bold red)'
+
+[git_metrics]
+added_style = 'bold blue'
+format = '[+$added]($added_style)/[-$deleted]($deleted_style) '
+
+[localip]
+ssh_only = false
+format = '@[$localipv4](bold red) '
+disabled = true
+
+[aws]
+format = 'on [$symbol($profile )(\($region\) )]($style)'
+style = 'bold blue'
+symbol = '🅰 '
+[aws.region_aliases]
+ap-southeast-2 = 'au'
+us-east-1 = 'va'
+us-west-2 = 'or'
+us-east-2 = 'og'
+
+[time]
+disabled = false
+format = '[$time]($style)'
+time_format = '%H:%M:%S'
+style = 'bold white'
