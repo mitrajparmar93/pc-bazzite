@@ -28,8 +28,6 @@ install = [
   "tmux",
   
   # Containers & Infrastructure
-  "docker",
-  "docker-compose",
   "podman-compose",
   "terraform",
   

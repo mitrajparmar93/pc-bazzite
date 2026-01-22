@@ -22,9 +22,9 @@ alias la="eza -la --icons"
 alias cat="bat"
 alias vim="nvim"
 
-# Docker/Podman
-alias dc="docker-compose"
-alias dps="docker ps"
+# Podman aliases (Docker compatibility)
+alias docker="podman"
+alias docker-compose="podman-compose"
 
 # Git shortcuts
 alias gs="git status"
