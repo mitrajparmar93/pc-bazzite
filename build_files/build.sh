@@ -22,4 +22,3 @@ echo 'options nvidia NVreg_RegistryDwords="PowerMizerEnable=0x1;PerfLevelSrc=0x2
 
 # Enable services
 systemctl enable podman.socket
-systemctl enable docker.socket
